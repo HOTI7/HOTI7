@@ -65,7 +65,7 @@
         <button class="submit" onclick="submitForm()">تسليم</button>
     </div>
 
-    <script>
+    <script>        
         function decrease() {
             let quantity = document.getElementById('quantity');
             let value = parseInt(quantity.value);
@@ -81,9 +81,20 @@
         }
 
         function submitForm() {
-            alert('تم تسليم الكمية: ' + document.getElementById('quantity').value);
+            let quantity = document.getElementById('quantity').value;
+
+            fetch("https://script.google.com/macros/s/AKfycbzA8Cozr1E0hSFW821pZeffuhStjRQEr1AsfwoKr_vzQDGnK7wBDI4f-Mp_E06KLjYp/exec", {
+                method: "POST",
+                body: JSON.stringify({ quantity: quantity }),
+                headers: { "Content-Type": "application/json" }
+            })
+            .then(response => response.text())
+            .then(data => alert(data))
+            .catch(error => console.error("Error:", error));
         }
     </script>
+
 </body>
 </html>
+
 
