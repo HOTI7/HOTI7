@@ -83,13 +83,19 @@
         function submitForm() {
             let quantity = document.getElementById('quantity').value;
 
+            // عرض نافذة التأكيد قبل الإرسال
+            let confirmAction = confirm(`هل أنت متأكد من إرسال الكمية: ${quantity}؟`);
+            if (!confirmAction) {
+                return; // إذا ضغط المستخدم "إلغاء" لا يتم إرسال البيانات
+            }
+
             fetch("https://script.google.com/macros/s/AKfycbzA8Cozr1E0hSFW821pZeffuhStjRQEr1AsfwoKr_vzQDGnK7wBDI4f-Mp_E06KLjYp/exec", {
                 method: "POST",
                 body: JSON.stringify({ quantity: quantity }),
                 headers: { "Content-Type": "application/json" }
             })
             .then(response => response.text())
-            .then(data => alert(data))
+            .then(data => alert("تمت العملية بنجاح!"))
             .catch(error => console.error("Error:", error));
         }
     </script>
